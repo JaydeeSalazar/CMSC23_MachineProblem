@@ -40,9 +40,9 @@
                      <children>
                         <AnchorPane layoutX="22.0" layoutY="106.0" prefHeight="600.0" prefWidth="890.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="14.0" layoutY="11.0" prefHeight="378.0" prefWidth="895.0">
+                              <AnchorPane layoutX="14.0" layoutY="41.0" prefHeight="348.0" prefWidth="895.0">
                                  <children>
-                                    <TableView layoutX="7.0" layoutY="6.0" prefHeight="366.0" prefWidth="881.0">
+                                    <TableView layoutX="7.0" layoutY="6.0" prefHeight="333.0" prefWidth="881.0">
                                       <columns>
                                         <TableColumn prefWidth="75.0" text="SKU" />
                                         <TableColumn prefWidth="125.0" text="Item Name" />
@@ -119,7 +119,7 @@
                                     <Button layoutX="472.0" layoutY="149.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Cancel" />
                                  </children>
                               </AnchorPane>
-                              <Separator layoutX="14.0" layoutY="381.0" prefHeight="4.0" prefWidth="889.0" AnchorPane.bottomAnchor="202.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="17.0" />
+                              <Separator layoutX="14.0" layoutY="381.0" prefHeight="4.0" prefWidth="888.0" AnchorPane.bottomAnchor="203.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="18.0" />
                            </children>
                         </AnchorPane>
                      </children>
