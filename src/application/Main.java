@@ -13,6 +13,7 @@ public class Main extends Application {
 	{
 		try 
 		{
+			//comment
 			Parent root = FXMLLoader.load(getClass().getResource("InventorySystem.fxml"));
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
