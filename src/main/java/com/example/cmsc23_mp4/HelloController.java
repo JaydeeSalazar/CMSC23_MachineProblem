@@ -155,7 +155,7 @@ public class HelloController {
             table.getItems().set(index, selectedItem);
 
             // Reset the selected item after editing
-            selectedItem = null;
+            //selectedItem = null;
         }
 
         table.setItems(itemList);
@@ -163,7 +163,7 @@ public class HelloController {
         cancelAction();  // Ensure to clear the TextFields and hide buttons
 
         // Clear the selected item after editing
-        selectedItem = null;
+        //selectedItem = null;
     }
 
 
