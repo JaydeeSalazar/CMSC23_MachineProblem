@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -77,46 +78,52 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="brand" layoutX="103.0" layoutY="93.0" prefHeight="25.0" prefWidth="143.0" />
-                                    <Label layoutX="336.0" layoutY="16.0" prefHeight="20.0" prefWidth="88.0" text="Weight (Kg) :">
+                                    <Label layoutX="331.0" layoutY="16.0" prefHeight="20.0" prefWidth="88.0" text="Weight (Kg) :">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="weight" layoutX="424.0" layoutY="14.0" prefHeight="25.0" prefWidth="70.0" />
-                                    <Label layoutX="437.0" layoutY="56.0" prefHeight="20.0" prefWidth="79.0" text="Volume (L) : ">
+                                    <TextField fx:id="weight" layoutX="419.0" layoutY="14.0" prefHeight="25.0" prefWidth="70.0" />
+                                    <Label layoutX="432.0" layoutY="56.0" prefHeight="20.0" prefWidth="79.0" text="Volume (L) : ">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="450.0" layoutY="94.0" prefHeight="20.0" prefWidth="65.0" text="Quantity :">
+                                    <Label layoutX="445.0" layoutY="94.0" prefHeight="20.0" prefWidth="65.0" text="Quantity :">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="260.0" layoutY="57.0" prefHeight="20.0" prefWidth="48.0" text="Color :">
+                                    <Label layoutX="255.0" layoutY="57.0" prefHeight="20.0" prefWidth="48.0" text="Color :">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="color" layoutX="314.0" layoutY="55.0" prefHeight="25.0" prefWidth="110.0" />
-                                    <Label layoutX="264.0" layoutY="97.0" prefHeight="20.0" prefWidth="67.0" text="Type :">
+                                    <TextField fx:id="color" layoutX="309.0" layoutY="55.0" prefHeight="25.0" prefWidth="110.0" />
+                                    <Label layoutX="259.0" layoutY="97.0" prefHeight="20.0" prefWidth="67.0" text="Type :">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="type" layoutX="314.0" layoutY="94.0" prefHeight="25.0" prefWidth="110.0" />
-                                    <Label layoutX="612.0" layoutY="16.0" prefHeight="20.0" prefWidth="86.0" text="Description :">
+                                    <TextField fx:id="type" layoutX="309.0" layoutY="94.0" prefHeight="25.0" prefWidth="110.0" />
+                                    <Label layoutX="598.0" layoutY="16.0" prefHeight="20.0" prefWidth="86.0" text="Description :">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="volume" layoutX="517.0" layoutY="62.0" prefHeight="25.0" prefWidth="70.0" />
-                                    <TextField fx:id="quantity" layoutX="517.0" layoutY="99.0" prefHeight="25.0" prefWidth="70.0" />
-                                    <TextArea fx:id="description" layoutX="612.0" layoutY="40.0" prefHeight="82.0" prefWidth="312.0" />
+                                    <TextField fx:id="volume" layoutX="517.0" layoutY="62.0" prefHeight="26.0" prefWidth="65.0" />
+                                    <TextField fx:id="quantity" layoutX="517.0" layoutY="99.0" prefHeight="25.0" prefWidth="65.0" />
+                                    <TextArea fx:id="description" layoutX="598.0" layoutY="41.0" prefHeight="88.0" prefWidth="170.0" />
                                     <Button fx:id="confirmButton" layoutX="278.0" layoutY="149.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="25.0" prefWidth="80.0" text="Confirm" />
                                     <Button fx:id="resetButton" layoutX="376.0" layoutY="149.0" mnemonicParsing="false" onAction="#resetAction" prefHeight="25.0" prefWidth="80.0" text="Reset" />
                                     <Button fx:id="cancelButton" layoutX="472.0" layoutY="149.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="80.0" text="Cancel" />
                                     <ChoiceBox fx:id="category" layoutX="103.0" layoutY="54.0" prefHeight="26.0" prefWidth="143.0" />
+                                    <AnchorPane layoutX="776.0" layoutY="4.0" prefHeight="127.0" prefWidth="140.0">
+                                       <children>
+                                          <ImageView fitHeight="127.0" fitWidth="140.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Button layoutX="801.0" layoutY="147.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" text="Import Image" />
                                  </children>
                               </AnchorPane>
                               <Separator layoutX="14.0" layoutY="381.0" prefHeight="4.0" prefWidth="888.0" AnchorPane.bottomAnchor="203.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="18.0" />
