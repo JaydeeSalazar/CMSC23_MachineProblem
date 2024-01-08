@@ -4,12 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
-import java.util.Random;
 
-import java.io.*;
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Random;
 import java.util.Scanner;
 
 public class HelloController {
@@ -18,7 +18,7 @@ public class HelloController {
     private TextField itemName;
 
     @FXML
-    private TextField category;
+    private ChoiceBox<String> category;
 
     @FXML
     private TextField brand;
@@ -111,6 +111,9 @@ public class HelloController {
         enableTextFields(false);
         confirmButton.setVisible(false);
         cancelButton.setVisible(false);
+
+        // Populate choices in the category ChoiceBox
+        category.setItems(FXCollections.observableArrayList("Condiment", "Beverage", "Merchandise", "Appetizer"));
     }
 
     @FXML
@@ -139,38 +142,34 @@ public class HelloController {
     protected void confirmAction() {
         if (selectedItem == null) {
             // Add a new item
-            Item newItem = new Item("SKU", itemName.getText(), category.getText(), brand.getText(),
+            Item newItem = new Item("SKU", itemName.getText(), category.getValue().toString(), brand.getText(),
                     weight.getText(), volume.getText(), quantity.getText(), color.getText(),
                     type.getText(), description.getText());
 
             itemList.add(newItem);
         } else {
+            // Update SKU if the category or itemName has changed
+            selectedItem.updateSKU(category.getValue(), itemName.getText());
+
             // Edit the selected item
-            selectedItem.setAllFields(itemName.getText(), category.getText(), brand.getText(),
+            selectedItem.setAllFields(itemName.getText(), category.getValue().toString(), brand.getText(),
                     weight.getText(), volume.getText(), quantity.getText(), color.getText(),
                     type.getText(), description.getText());
 
             // Update the TableView with the edited item
             int index = itemList.indexOf(selectedItem);
             table.getItems().set(index, selectedItem);
-
-            // Reset the selected item after editing
-            //selectedItem = null;
         }
 
         table.setItems(itemList);
         resetAction();
         cancelAction();  // Ensure to clear the TextFields and hide buttons
-
-        // Clear the selected item after editing
-        //selectedItem = null;
     }
-
 
     @FXML
     protected void resetAction() {
         itemName.clear();
-        category.clear();
+        category.setValue(null);
         brand.clear();
         weight.clear();
         volume.clear();
@@ -191,7 +190,7 @@ public class HelloController {
                 for (Item item : itemList) {
                     writer.println(item.toCSV());
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -215,7 +214,7 @@ public class HelloController {
                     }
                 }
                 table.setItems(itemList);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -230,7 +229,6 @@ public class HelloController {
             cancelButton.setVisible(true);
         }
     }
-
 
     @FXML
     protected void deleteExisting() {
@@ -256,7 +254,7 @@ public class HelloController {
 
     private void setFieldsFromSelectedItem() {
         itemName.setText(selectedItem.getItemName());
-        category.setText(selectedItem.getCategory());
+        category.setValue(selectedItem.getCategory());
         brand.setText(selectedItem.getBrand());
         weight.setText(selectedItem.getWeight());
         volume.setText(selectedItem.getVolume());
@@ -318,7 +316,6 @@ public class HelloController {
             return description;
         }
 
-
         public String generateSKU(String category, String itemName) {
             // get first three consonants from category
             String categoryPrefix = getConsonantsPrefix(category, 3);
@@ -331,6 +328,19 @@ public class HelloController {
             return categoryPrefix + "/" + itemPrefix + "-" + randomNumber;
         }
 
+        public void updateSKU(String newCategory, String newItemName) {
+            if (newCategory != null && newItemName != null) {
+                // Get the first three consonants of the new category
+                String newCategoryPrefix = getConsonantsPrefix(newCategory, 3);
+
+                // Get the first three characters of the new itemName
+                String newItemNamePrefix = getConsonantsPrefix(newItemName, 3);
+
+                // Update SKU with the new category and itemName
+                this.sku = newCategoryPrefix + "/" + newItemNamePrefix + this.sku.substring(7);
+            }
+        }
+
         private String getConsonantsPrefix(String input, int length) {
             StringBuilder prefix = new StringBuilder();
             int count = 0;
@@ -340,8 +350,7 @@ public class HelloController {
             for (char ch : input.toUpperCase().toCharArray()) {
                 if (Character.isLetter(ch) && !isVowel(ch)) {
                     consonantCount++;
-                }
-                else if (Character.isLetter(ch) && isVowel(ch) && firstVowel != null){
+                } else if (Character.isLetter(ch) && isVowel(ch) && firstVowel != null) {
                     firstVowel = ch;
                 }
             }
@@ -356,8 +365,7 @@ public class HelloController {
                         break;
                     }
                 }
-            }
-            else{
+            } else {
                 boolean insertedVowelAlready = false;
                 for (char ch : input.toUpperCase().toCharArray()) {
                     if (Character.isLetter(ch) && !isVowel(ch)) {
@@ -393,7 +401,6 @@ public class HelloController {
             return "AEIOU".charAt(new Random().nextInt(5));
         }
 
-
         public Item(String sku, String itemName, String category, String brand, String weight,
                     String volume, String quantity, String color, String type, String description) {
             this.sku = generateSKU(category, itemName);
@@ -406,9 +413,7 @@ public class HelloController {
             this.color = color;
             this.type = type;
             this.description = description;
-
         }
-
 
         public String toCSV() {
             return String.join(",", sku, itemName, category, brand, weight, volume, quantity, color, type, description);
