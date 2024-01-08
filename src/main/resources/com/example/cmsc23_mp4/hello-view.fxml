@@ -116,7 +116,7 @@
                                     <Button fx:id="confirmButton" layoutX="278.0" layoutY="149.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="25.0" prefWidth="80.0" text="Confirm" />
                                     <Button fx:id="resetButton" layoutX="376.0" layoutY="149.0" mnemonicParsing="false" onAction="#resetAction" prefHeight="25.0" prefWidth="80.0" text="Reset" />
                                     <Button fx:id="cancelButton" layoutX="472.0" layoutY="149.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="80.0" text="Cancel" />
-                                    <ChoiceBox layoutX="103.0" layoutY="54.0" prefHeight="26.0" prefWidth="143.0" />
+                                    <ChoiceBox fx:id="category" layoutX="103.0" layoutY="54.0" prefHeight="26.0" prefWidth="143.0" />
                                  </children>
                               </AnchorPane>
                               <Separator layoutX="14.0" layoutY="381.0" prefHeight="4.0" prefWidth="888.0" AnchorPane.bottomAnchor="203.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="18.0" />
