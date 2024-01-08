@@ -325,7 +325,7 @@ public class HelloController {
             // get first three consonants from item name
             String itemPrefix = getConsonantsPrefix(itemName, 3);
 
-            // random number [from ]0000 to 9999
+            // random number from 0000 to 9999
             String randomNumber = String.format("%04d", new Random().nextInt(10000));
 
             return categoryPrefix + "/" + itemPrefix + "-" + randomNumber;
@@ -334,15 +334,45 @@ public class HelloController {
         private String getConsonantsPrefix(String input, int length) {
             StringBuilder prefix = new StringBuilder();
             int count = 0;
+            int consonantCount = 0;
+            Character firstVowel = null;
 
             for (char ch : input.toUpperCase().toCharArray()) {
                 if (Character.isLetter(ch) && !isVowel(ch)) {
-                    prefix.append(ch);
-                    count++;
+                    consonantCount++;
                 }
+                else if (Character.isLetter(ch) && isVowel(ch) && firstVowel != null){
+                    firstVowel = ch;
+                }
+            }
+            if (consonantCount > 2) {
+                for (char ch : input.toUpperCase().toCharArray()) {
+                    if (Character.isLetter(ch) && !isVowel(ch)) {
+                        prefix.append(ch);
+                        count++;
+                    }
 
-                if (count == length) {
-                    break;
+                    if (count == length) {
+                        break;
+                    }
+                }
+            }
+            else{
+                boolean insertedVowelAlready = false;
+                for (char ch : input.toUpperCase().toCharArray()) {
+                    if (Character.isLetter(ch) && !isVowel(ch)) {
+                        prefix.append(ch);
+                        count++;
+                    }
+                    if (Character.isLetter(ch) && isVowel(ch) && !insertedVowelAlready) {
+                        insertedVowelAlready = true;
+                        prefix.append(ch);
+                        count++;
+                    }
+
+                    if (count == length) {
+                        break;
+                    }
                 }
             }
 
