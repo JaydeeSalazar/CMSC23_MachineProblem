@@ -120,10 +120,10 @@
                                     <ChoiceBox fx:id="category" layoutX="103.0" layoutY="54.0" prefHeight="26.0" prefWidth="143.0" />
                                     <AnchorPane layoutX="776.0" layoutY="4.0" prefHeight="127.0" prefWidth="140.0">
                                        <children>
-                                          <ImageView fitHeight="127.0" fitWidth="140.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="imageView" fitHeight="127.0" fitWidth="140.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
-                                    <Button layoutX="801.0" layoutY="147.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" text="Import Image" />
+                                    <Button fx:id="importButton" layoutX="801.0" layoutY="147.0" mnemonicParsing="false" onAction="#importImage" prefHeight="26.0" prefWidth="97.0" text="Import Image" />
                                  </children>
                               </AnchorPane>
                               <Separator layoutX="14.0" layoutY="381.0" prefHeight="4.0" prefWidth="888.0" AnchorPane.bottomAnchor="203.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="18.0" />

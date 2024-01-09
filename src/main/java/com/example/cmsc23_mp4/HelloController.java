@@ -5,10 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -80,6 +81,12 @@ public class HelloController {
     @FXML
     private Button cancelButton;
 
+    @FXML
+    private Button importButton;
+
+    @FXML
+    private ImageView imageView;
+
     private ObservableList<Item> itemList = FXCollections.observableArrayList();
 
     private Item selectedItem; // tracks the selected item for editing/deleting
@@ -105,15 +112,20 @@ public class HelloController {
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedItem = newSelection;
+
+                Image image = new Image(selectedItem.getImportedImagePath());
+                imageView.setImage(image);
             }
         });
         // Set initial properties, dont do it initially sa scenebuilder or mahirap i-edit
         enableTextFields(false);
         confirmButton.setVisible(false);
         cancelButton.setVisible(false);
+        importButton.setVisible(false);
 
         // Populate choices in the category ChoiceBox
         category.setItems(FXCollections.observableArrayList("Condiment", "Beverage", "Merchandise", "Appetizer"));
+
     }
 
     @FXML
@@ -123,7 +135,11 @@ public class HelloController {
         enableTextFields(true);
         confirmButton.setVisible(true);
         cancelButton.setVisible(true);
+
+        // Set the visibility of importButton
+        importButton.setVisible(true);
     }
+
 
     @FXML
     protected void addExisting() {
@@ -136,15 +152,20 @@ public class HelloController {
         enableTextFields(false);
         confirmButton.setVisible(false);
         cancelButton.setVisible(false);
+        importButton.setVisible(false);
     }
 
     @FXML
     protected void confirmAction() {
         if (selectedItem == null) {
             // Add a new item
-            Item newItem = new Item("SKU", itemName.getText(), category.getValue().toString(), brand.getText(),
-                    weight.getText(), volume.getText(), quantity.getText(), color.getText(),
-                    type.getText(), description.getText());
+            Item newItem = new Item("SKU", itemName.getText(), category.getValue().toString(),
+                    brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
+                    color.getText(), type.getText(), description.getText(),
+                    selectedItem != null ? selectedItem.getImportedImagePath() : "");
+            itemList.add(newItem);
+            // Set the image using InputStream
+            newItem.setInputStream(getImageInputStream());
 
             itemList.add(newItem);
         } else {
@@ -152,9 +173,12 @@ public class HelloController {
             selectedItem.updateSKU(category.getValue(), itemName.getText());
 
             // Edit the selected item
-            selectedItem.setAllFields(itemName.getText(), category.getValue().toString(), brand.getText(),
-                    weight.getText(), volume.getText(), quantity.getText(), color.getText(),
-                    type.getText(), description.getText());
+            selectedItem.setAllFields(itemName.getText(), category.getValue().toString(),
+                    brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
+                    color.getText(), type.getText(), description.getText());
+
+            // Set the image using InputStream
+            selectedItem.setInputStream(getImageInputStream());
 
             // Update the TableView with the edited item
             int index = itemList.indexOf(selectedItem);
@@ -164,6 +188,10 @@ public class HelloController {
         table.setItems(itemList);
         resetAction();
         cancelAction();  // Ensure to clear the TextFields and hide buttons
+
+        // Handle the visibility of importButton
+        importButton.setVisible(false);
+        imageView.setImage(null);
     }
 
     @FXML
@@ -177,6 +205,22 @@ public class HelloController {
         color.clear();
         type.clear();
         description.clear();
+    }
+
+    private InputStream getImageInputStream() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        File imageFile = fileChooser.showOpenDialog(null);
+
+        if (imageFile != null) {
+            try {
+                return new DataInputStream(new FileInputStream(imageFile));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 
     @FXML
@@ -197,6 +241,28 @@ public class HelloController {
     }
 
     @FXML
+    protected void importImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            System.out.println(file.getAbsolutePath());
+            final InputStream targetStream; // Creating the InputStream
+            try
+            {
+                targetStream = new DataInputStream(new FileInputStream(file));
+                Image image = new Image(targetStream);
+                imageView.setImage(image);
+
+            } catch (FileNotFoundException fileNotFoundException)
+            {
+                fileNotFoundException.printStackTrace();
+            }
+
+        }
+    }
+
+    @FXML
     protected void importCSV() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open CSV File");
@@ -207,9 +273,13 @@ public class HelloController {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     String[] values = line.split(",");
-                    if (values.length == 10) {
+                    if (values.length == 11) {
                         Item newItem = new Item(values[0], values[1], values[2], values[3],
-                                values[4], values[5], values[6], values[7], values[8], values[9]);
+                                values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+
+                        // Set the image using InputStream
+                        newItem.setInputStream(getImageInputStream());
+
                         itemList.add(newItem);
                     }
                 }
@@ -227,6 +297,9 @@ public class HelloController {
             enableTextFields(true);
             confirmButton.setVisible(true);
             cancelButton.setVisible(true);
+
+            // Set the visibility of importButton
+            importButton.setVisible(true);
         }
     }
 
@@ -275,6 +348,9 @@ public class HelloController {
         private String color;
         private String type;
         private String description;
+
+        @FXML
+        private ImageView imageView;
 
         public String getSku() {
             return sku;
@@ -401,8 +477,35 @@ public class HelloController {
             return "AEIOU".charAt(new Random().nextInt(5));
         }
 
+        private String importedImagePath;
+
+        public String getImportedImagePath() {
+            return importedImagePath;
+        }
+
+        public ImageView getImageView() {
+            return imageView;
+        }
+
+        public void setInputStream(InputStream inputStream) {
+            if (inputStream != null) {
+                this.imageView = new ImageView(new Image(inputStream));
+            }
+        }
+
+        private void updateImageView() {
+            if (importedImagePath != null && !importedImagePath.isEmpty()) {
+                File imageFile = new File(importedImagePath);
+                if (imageFile.exists()) {
+                    Image image = new Image(imageFile.toURI().toString());
+                    imageView.setImage(image);
+                }
+            }
+        }
+
+
         public Item(String sku, String itemName, String category, String brand, String weight,
-                    String volume, String quantity, String color, String type, String description) {
+                    String volume, String quantity, String color, String type, String description, String importedImagePath) {
             this.sku = generateSKU(category, itemName);
             this.itemName = itemName;
             this.category = category;
@@ -413,10 +516,13 @@ public class HelloController {
             this.color = color;
             this.type = type;
             this.description = description;
+            this.importedImagePath = importedImagePath;
+            updateImageView();
         }
 
         public String toCSV() {
-            return String.join(",", sku, itemName, category, brand, weight, volume, quantity, color, type, description);
+            return String.join(",", sku, itemName, category, brand, weight, volume, quantity,
+                    color, type, description, importedImagePath);
         }
 
         public void setAllFields(String itemName, String category, String brand, String weight,
