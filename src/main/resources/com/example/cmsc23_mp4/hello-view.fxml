@@ -132,17 +132,17 @@
                                     </Label>
                                     <TextField fx:id="volume" layoutX="508.0" layoutY="67.0" prefHeight="26.0" prefWidth="65.0" />
                                     <TextField fx:id="quantity" layoutX="508.0" layoutY="104.0" prefHeight="25.0" prefWidth="65.0" />
-                                    <TextArea fx:id="description" layoutX="594.0" layoutY="53.0" prefHeight="77.0" prefWidth="196.0" />
+                                    <TextArea fx:id="description" layoutX="594.0" layoutY="53.0" prefHeight="77.0" prefWidth="213.0" />
                                     <Button fx:id="confirmButton" layoutX="333.0" layoutY="149.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="25.0" prefWidth="80.0" text="CONFIRM" />
                                     <Button fx:id="resetButton" layoutX="431.0" layoutY="149.0" mnemonicParsing="false" onAction="#resetAction" prefHeight="25.0" prefWidth="80.0" text="RESET" />
                                     <Button fx:id="cancelButton" layoutX="527.0" layoutY="149.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="80.0" text="CANCEL" />
                                     <ChoiceBox fx:id="category" layoutX="99.0" layoutY="67.0" prefHeight="26.0" prefWidth="143.0" />
-                                    <AnchorPane layoutX="776.0" layoutY="4.0" prefHeight="127.0" prefWidth="140.0">
+                                    <AnchorPane layoutX="827.0" layoutY="17.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="125.0" style="-fx-background-color: #DCDCDC;">
                                        <children>
-                                          <ImageView fx:id="imageView" fitHeight="127.0" fitWidth="140.0" layoutX="31.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="imageView" fitHeight="127.0" fitWidth="140.0" layoutX="-7.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="importButton" layoutX="819.0" layoutY="149.0" mnemonicParsing="false" onAction="#importImage" prefHeight="26.0" prefWidth="105.0" text="IMPORT IMAGE" />
+                                    <Button fx:id="importButton" layoutX="827.0" layoutY="149.0" mnemonicParsing="false" onAction="#importImage" prefHeight="26.0" prefWidth="126.0" text="IMPORT IMAGE" />
                                  </children>
                               </AnchorPane>
                               <Separator layoutX="15.0" layoutY="368.0" prefHeight="5.0" prefWidth="990.0" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="14.0" />
