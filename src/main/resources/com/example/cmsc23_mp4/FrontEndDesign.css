@@ -1,24 +1,24 @@
 .button
 {
--fx-background-color: "white";
+-fx-background-color: #0B1B28;
 -fx-border-color: "white";
 -fx-font-size: 12;
 -fx-font-family: "Source Sans Pro";
 -fx-font-weight: bold;
--fx-text-fill: "Black";
+-fx-text-fill: "white";
 -fx-cursor: pointer;
 }
 
 .button:hover{
--fx-background-color: #91cb40;
--fx-border-color: #91cb40;
--fx-text-fill: "White";
+-fx-background-color: "White";
+-fx-border-color: "White";
+-fx-text-fill: #0B1B28;
 }
 
 .button:pressed{
--fx-background-color: #3d6900;
--fx-border-color: blue;
--fx-text-fill: "White";
+-fx-background-color: "White";
+-fx-border-color: "White";
+-fx-text-fill: #0B1B28;
 }
 
 .label
@@ -26,12 +26,19 @@
 -fx-font-family: "Source Sans Pro";
 -fx-font-size: 12;
 -fx-font-weight: bold;
--fx-text-fill: #845400;
+-fx-text-fill: #0B1B28;
 
 }
 
 .table-view .column-header{
 -fx-text-fill: #91cb40;
+}
+
+.table-row-cell:even{
+-fx-background-color: #f3f3f3;
+}
+.table-row-cell:odd{
+-fx-background-color: "White";
 }
 
 /* 
