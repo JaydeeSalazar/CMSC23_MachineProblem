@@ -78,7 +78,7 @@
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="23.0" layoutY="386.0" prefHeight="188.0" prefWidth="973.0" style="-fx-background-color: white;">
+                              <AnchorPane layoutX="23.0" layoutY="386.0" prefHeight="188.0" prefWidth="975.0" style="-fx-background-color: white;">
                                  <children>
                                     <Label layoutX="16.0" layoutY="29.0" prefHeight="20.0" prefWidth="83.0" text="ITEM NAME">
                                        <font>
