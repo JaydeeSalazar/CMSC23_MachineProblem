@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1184.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cmsc23_mp4.HelloController">
@@ -28,14 +27,19 @@
                            <children>
                               <AnchorPane layoutX="-25.0" prefHeight="140.0" prefWidth="175.0" style="-fx-background-color: #0B1B28;" AnchorPane.leftAnchor="-25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Circle fill="WHITE" layoutX="108.0" layoutY="90.0" radius="64.0" stroke="WHITE" strokeType="INSIDE" />
+                                    <ImageView fitHeight="169.0" fitWidth="177.0" layoutX="25.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@logo_final.png" />
+                                       </image>
+                                    </ImageView>
                                  </children></AnchorPane>
                               <Button layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#addItem" prefHeight="30.0" prefWidth="110.0" text="ADD ITEM" />
                               <Button layoutX="31.0" layoutY="221.0" mnemonicParsing="false" onAction="#addExisting" prefHeight="30.0" prefWidth="110.0" text="RESTOCK ITEM" />
-                              <Button layoutX="31.0" layoutY="264.0" mnemonicParsing="false" onAction="#editExisting" prefHeight="30.0" prefWidth="110.0" text="EDIT ITEM" />
-                              <Button layoutX="31.0" layoutY="305.0" mnemonicParsing="false" onAction="#deleteExisting" prefHeight="30.0" prefWidth="110.0" text="DELETE ITEM" />
-                              <Button layoutX="31.0" layoutY="346.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="30.0" prefWidth="110.0" text="IMPORT CSV" />
-                              <Button layoutX="31.0" layoutY="389.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="30.0" prefWidth="110.0" text="EXPORT CSV" />
+                              <Button layoutX="31.0" layoutY="300.0" mnemonicParsing="false" onAction="#editExisting" prefHeight="30.0" prefWidth="110.0" text="EDIT ITEM" />
+                              <Button layoutX="31.0" layoutY="341.0" mnemonicParsing="false" onAction="#deleteExisting" prefHeight="30.0" prefWidth="110.0" text="DELETE ITEM" />
+                              <Button layoutX="31.0" layoutY="382.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="30.0" prefWidth="110.0" text="IMPORT CSV" />
+                              <Button layoutX="31.0" layoutY="422.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="30.0" prefWidth="110.0" text="EXPORT CSV" />
+                              <Button layoutX="31.0" layoutY="260.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="30.0" prefWidth="110.0" text="LOG USAGE" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -76,18 +80,18 @@
                               </AnchorPane>
                               <AnchorPane layoutX="23.0" layoutY="386.0" prefHeight="188.0" prefWidth="973.0" style="-fx-background-color: white;">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="28.0" prefHeight="20.0" prefWidth="83.0" text="ITEM NAME">
+                                    <Label layoutX="16.0" layoutY="29.0" prefHeight="20.0" prefWidth="83.0" text="ITEM NAME">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="itemName" layoutX="99.0" layoutY="26.0" prefHeight="25.0" prefWidth="143.0" />
-                                    <Label layoutX="18.0" layoutY="69.0" prefHeight="20.0" prefWidth="74.0" text="CATEGORY">
+                                    <Label layoutX="20.0" layoutY="70.0" prefHeight="20.0" prefWidth="74.0" text="CATEGORY">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="41.0" layoutY="107.0" prefHeight="20.0" prefWidth="51.0" text="BRAND">
+                                    <Label layoutX="43.0" layoutY="108.0" prefHeight="20.0" prefWidth="51.0" text="BRAND">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
