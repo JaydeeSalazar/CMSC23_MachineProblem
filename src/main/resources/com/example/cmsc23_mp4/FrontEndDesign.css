@@ -27,7 +27,6 @@
 -fx-font-size: 12;
 -fx-font-weight: bold;
 -fx-text-fill: #0B1B28;
-
 }
 
 .table-view .column-header{
@@ -41,26 +40,3 @@
 -fx-background-color: "White";
 }
 
-/* 
-.table-view{
--fx-background-color: ;
-}
-
-.table-view:focused{
--fx-background-color: ;
-}
-
-.table-view .column-header{
--fx-background-color:;
-}
-
-.table-row-cell:even{
--fx-background-color: #DFD6CB;
-}
-.table-row-cell:odd{
--fx-background-color: #ECE5DD;
-}
-
-.table-row-cell:selected{
--fx-background-color: #C69D70;
-}*/
