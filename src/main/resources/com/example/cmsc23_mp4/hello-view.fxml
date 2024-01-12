@@ -33,13 +33,13 @@
                                        </image>
                                     </ImageView>
                                  </children></AnchorPane>
-                              <Button layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#addItem" prefHeight="30.0" prefWidth="110.0" text="ADD ITEM" />
-                              <Button layoutX="31.0" layoutY="221.0" mnemonicParsing="false" onAction="#addExisting" prefHeight="30.0" prefWidth="110.0" text="RESTOCK ITEM" />
-                              <Button layoutX="31.0" layoutY="300.0" mnemonicParsing="false" onAction="#editExisting" prefHeight="30.0" prefWidth="110.0" text="EDIT ITEM" />
-                              <Button layoutX="31.0" layoutY="341.0" mnemonicParsing="false" onAction="#deleteExisting" prefHeight="30.0" prefWidth="110.0" text="DELETE ITEM" />
-                              <Button layoutX="31.0" layoutY="382.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="30.0" prefWidth="110.0" text="IMPORT CSV" />
-                              <Button layoutX="31.0" layoutY="422.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="30.0" prefWidth="110.0" text="EXPORT CSV" />
-                              <Button layoutX="31.0" layoutY="260.0" mnemonicParsing="false" onAction="#logUsage" prefHeight="30.0" prefWidth="110.0" text="LOG USAGE" />
+                              <Button layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#addItem" prefHeight="30.0" prefWidth="110.0" stylesheets="@ButtonDesign_leftpane.css" text="ADD ITEM" />
+                              <Button layoutX="31.0" layoutY="221.0" mnemonicParsing="false" onAction="#addExisting" prefHeight="30.0" prefWidth="110.0" stylesheets="@ButtonDesign_leftpane.css" text="RESTOCK ITEM" />
+                              <Button layoutX="31.0" layoutY="300.0" mnemonicParsing="false" onAction="#editExisting" prefHeight="30.0" prefWidth="110.0" stylesheets="@ButtonDesign_leftpane.css" text="EDIT ITEM" />
+                              <Button layoutX="31.0" layoutY="341.0" mnemonicParsing="false" onAction="#deleteExisting" prefHeight="30.0" prefWidth="110.0" stylesheets="@ButtonDesign_leftpane.css" text="DELETE ITEM" />
+                              <Button layoutX="31.0" layoutY="382.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="30.0" prefWidth="110.0" stylesheets="@ButtonDesign_leftpane.css" text="IMPORT CSV" />
+                              <Button layoutX="31.0" layoutY="422.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="30.0" prefWidth="110.0" stylesheets="@ButtonDesign_leftpane.css" text="EXPORT CSV" />
+                              <Button layoutX="31.0" layoutY="260.0" mnemonicParsing="false" onAction="#logUsage" prefHeight="30.0" prefWidth="110.0" stylesheets="@ButtonDesign_leftpane.css" text="LOG USAGE" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -133,16 +133,16 @@
                                     <TextField fx:id="volume" layoutX="508.0" layoutY="67.0" prefHeight="26.0" prefWidth="65.0" />
                                     <TextField fx:id="quantity" layoutX="508.0" layoutY="104.0" prefHeight="25.0" prefWidth="65.0" />
                                     <TextArea fx:id="description" layoutX="594.0" layoutY="53.0" prefHeight="77.0" prefWidth="213.0" />
-                                    <Button fx:id="confirmButton" layoutX="333.0" layoutY="149.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="25.0" prefWidth="80.0" text="CONFIRM" />
-                                    <Button fx:id="resetButton" layoutX="431.0" layoutY="149.0" mnemonicParsing="false" onAction="#resetAction" prefHeight="25.0" prefWidth="80.0" text="RESET" />
-                                    <Button fx:id="cancelButton" layoutX="527.0" layoutY="149.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="80.0" text="CANCEL" />
+                                    <Button fx:id="confirmButton" layoutX="333.0" layoutY="149.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ButtonDesign_bottompane.css" text="CONFIRM" />
+                                    <Button fx:id="resetButton" layoutX="431.0" layoutY="149.0" mnemonicParsing="false" onAction="#resetAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ButtonDesign_bottompane.css" text="RESET" />
+                                    <Button fx:id="cancelButton" layoutX="527.0" layoutY="149.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ButtonDesign_bottompane.css" text="CANCEL" />
                                     <ChoiceBox fx:id="category" layoutX="99.0" layoutY="67.0" prefHeight="26.0" prefWidth="143.0" />
                                     <AnchorPane layoutX="827.0" layoutY="17.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="125.0" style="-fx-background-color: #DCDCDC;">
                                        <children>
                                           <ImageView fx:id="imageView" fitHeight="127.0" fitWidth="140.0" layoutX="-7.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="importButton" layoutX="827.0" layoutY="149.0" mnemonicParsing="false" onAction="#importImage" prefHeight="26.0" prefWidth="126.0" text="IMPORT IMAGE" />
+                                    <Button fx:id="importButton" layoutX="827.0" layoutY="149.0" mnemonicParsing="false" onAction="#importImage" prefHeight="26.0" prefWidth="126.0" stylesheets="@ButtonDesign_bottompane.css" text="IMPORT IMAGE" />
                                  </children>
                               </AnchorPane>
                               <Separator layoutX="15.0" layoutY="368.0" prefHeight="5.0" prefWidth="990.0" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="14.0" />

@@ -1,0 +1,23 @@
+.button
+{
+-fx-background-color: #0B1B28;
+-fx-border-color: "white";
+-fx-font-size: 12;
+-fx-font-family: "Source Sans Pro";
+-fx-font-weight: bold;
+-fx-text-fill: "white";
+-fx-cursor: pointer;
+}
+
+.button:hover
+{
+-fx-background-color: "White";
+-fx-border-color: "White";
+-fx-text-fill: #0B1B28;
+}
+
+.button:pressed{
+-fx-background-color: "White";
+-fx-border-color: "White";
+-fx-text-fill: #0B1B28;
+}
