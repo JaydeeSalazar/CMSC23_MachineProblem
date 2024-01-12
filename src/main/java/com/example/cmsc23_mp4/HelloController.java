@@ -15,6 +15,8 @@ import java.util.Scanner;
 
 public class HelloController {
 
+    private static String imagePath;
+
     @FXML
     private TextField itemName;
 
@@ -162,10 +164,10 @@ public class HelloController {
             Item newItem = new Item("SKU", itemName.getText(), category.getValue().toString(),
                     brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
                     color.getText(), type.getText(), description.getText(),
-                    selectedItem != null ? selectedItem.getImportedImagePath() : "");
-            itemList.add(newItem);
+                    imageView.getImage().getUrl());
+
             // Set the image using InputStream
-            newItem.setInputStream(getImageInputStream());
+            //newItem.setInputStream(getImageInputStream());
 
             itemList.add(newItem);
         } else {
@@ -175,10 +177,10 @@ public class HelloController {
             // Edit the selected item
             selectedItem.setAllFields(itemName.getText(), category.getValue().toString(),
                     brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
-                    color.getText(), type.getText(), description.getText());
+                    color.getText(), type.getText(), description.getText(), imageView.getImage().getUrl());
 
             // Set the image using InputStream
-            selectedItem.setInputStream(getImageInputStream());
+            //selectedItem.setInputStream(getImageInputStream());
 
             // Update the TableView with the edited item
             int index = itemList.indexOf(selectedItem);
@@ -276,10 +278,6 @@ public class HelloController {
                     if (values.length == 11) {
                         Item newItem = new Item(values[0], values[1], values[2], values[3],
                                 values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
-
-                        // Set the image using InputStream
-                        newItem.setInputStream(getImageInputStream());
-
                         itemList.add(newItem);
                     }
                 }
@@ -301,6 +299,18 @@ public class HelloController {
             // Set the visibility of importButton
             importButton.setVisible(true);
         }
+        else{
+            if (table.getItems().size() == 1){
+                selectedItem = table.getItems().getFirst();
+                setFieldsFromSelectedItem();
+                enableTextFields(true);
+                confirmButton.setVisible(true);
+                cancelButton.setVisible(true);
+
+                // Set the visibility of importButton
+                importButton.setVisible(true);
+            }
+        }
     }
 
     @FXML
@@ -311,6 +321,16 @@ public class HelloController {
             table.setItems(itemList);
             resetAction();
         }
+        else{
+            if (table.getItems().size() == 1){
+                itemList.removeFirst();
+            }
+        }
+    }
+
+    @FXML
+    protected void logUsage() {
+        System.out.println("Placeholder");
     }
 
     private void enableTextFields(boolean enable) {
@@ -348,6 +368,7 @@ public class HelloController {
         private String color;
         private String type;
         private String description;
+        private String importedImagePath;
 
         @FXML
         private ImageView imageView;
@@ -390,6 +411,10 @@ public class HelloController {
 
         public String getDescription() {
             return description;
+        }
+
+        public String getImportedImagePath() {
+            return importedImagePath;
         }
 
         public String generateSKU(String category, String itemName) {
@@ -477,12 +502,6 @@ public class HelloController {
             return "AEIOU".charAt(new Random().nextInt(5));
         }
 
-        private String importedImagePath;
-
-        public String getImportedImagePath() {
-            return importedImagePath;
-        }
-
         public ImageView getImageView() {
             return imageView;
         }
@@ -526,7 +545,7 @@ public class HelloController {
         }
 
         public void setAllFields(String itemName, String category, String brand, String weight,
-                                 String volume, String quantity, String color, String type, String description) {
+                                 String volume, String quantity, String color, String type, String description, String importedImagePath) {
             this.itemName = itemName;
             this.category = category;
             this.brand = brand;
@@ -536,6 +555,7 @@ public class HelloController {
             this.color = color;
             this.type = type;
             this.description = description;
+            this.importedImagePath = importedImagePath;
         }
     }
 }
