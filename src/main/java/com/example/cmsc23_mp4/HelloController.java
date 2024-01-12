@@ -117,18 +117,19 @@ public class HelloController {
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedItem = newSelection;
-
-                if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
-                    File imageFile = new File(selectedItem.getImportedImagePath());
-                    final InputStream targetStream; // Creating the InputStream
-                    try
-                    {
-                        targetStream = new DataInputStream(new FileInputStream(imageFile));
-                        Image image = new Image(targetStream);
-                        imageView.setImage(image);
-                    } catch (FileNotFoundException fileNotFoundException)
-                    {
-                        fileNotFoundException.printStackTrace();
+                if (!importButton.isVisible()) {
+                    if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                        File imageFile = new File(selectedItem.getImportedImagePath());
+                        final InputStream targetStream; // Creating the InputStream
+                        try {
+                            targetStream = new DataInputStream(new FileInputStream(imageFile));
+                            Image image = new Image(targetStream);
+                            imageView.setImage(image);
+                        } catch (FileNotFoundException fileNotFoundException) {
+                            fileNotFoundException.printStackTrace();
+                        }
+                    } else {
+                        imageView.setImage(null);
                     }
                 }
             }
@@ -173,7 +174,21 @@ public class HelloController {
 
     @FXML
     protected void addExisting() {
-        System.out.println("Mahiwagang Good Luck");
+        if (selectedItem != null) {
+            setFieldsFromSelectedItem();
+            enableTextFields(true);
+            confirmButton.setVisible(true);
+            cancelButton.setVisible(true);
+
+            // Set the visibility of importButton
+            importButton.setVisible(true);
+        }
+        else{
+            if (table.getItems().size() == 1){
+                selectedItem = table.getItems().getFirst();
+                addExisting();
+            }
+        }
     }
 
     @FXML
@@ -192,8 +207,8 @@ public class HelloController {
             Item newItem = new Item("SKU", itemName.getText(), category.getValue().toString(),
                     brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
                     color.getText(), type.getText(), description.getText(),
-                    imageView.getImage().getUrl());
-            System.out.println(imageView.getImage().getUrl());
+                    imagePath);
+            System.out.println(imagePath);
 
             // Set the image using InputStream
             //newItem.setInputStream(getImageInputStream());
@@ -206,7 +221,7 @@ public class HelloController {
             // Edit the selected item
             selectedItem.setAllFields(itemName.getText(), category.getValue().toString(),
                     brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
-                    color.getText(), type.getText(), description.getText(), imageView.getImage().getUrl());
+                    color.getText(), type.getText(), description.getText(), imagePath);
 
             // Set the image using InputStream
             //selectedItem.setInputStream(getImageInputStream());
@@ -236,6 +251,8 @@ public class HelloController {
         color.clear();
         type.clear();
         description.clear();
+        imageView.setImage(null);
+        imagePath = "";
     }
 
     @FXML
@@ -315,13 +332,7 @@ public class HelloController {
         else{
             if (table.getItems().size() == 1){
                 selectedItem = table.getItems().getFirst();
-                setFieldsFromSelectedItem();
-                enableTextFields(true);
-                confirmButton.setVisible(true);
-                cancelButton.setVisible(true);
-
-                // Set the visibility of importButton
-                importButton.setVisible(true);
+                editExisting();
             }
         }
     }
@@ -368,6 +379,12 @@ public class HelloController {
         color.setText(selectedItem.getColor());
         type.setText(selectedItem.getType());
         description.setText(selectedItem.getDescription());
+        if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+            imagePath = selectedItem.getImportedImagePath();
+        }
+        else{
+            imagePath = "";
+        }
     }
 
     public static class Item {
@@ -383,8 +400,6 @@ public class HelloController {
         private String description;
         private String importedImagePath;
 
-        @FXML
-        private ImageView imageView;
 
         public String getSku() {
             return sku;
@@ -515,32 +530,6 @@ public class HelloController {
             return "AEIOU".charAt(new Random().nextInt(5));
         }
 
-        public ImageView getImageView() {
-            return imageView;
-        }
-
-        public void setInputStream(InputStream inputStream) {
-            if (inputStream != null) {
-                this.imageView = new ImageView(new Image(inputStream));
-            }
-        }
-
-        private void updateImageView() {
-            if (importedImagePath != null && !importedImagePath.isEmpty()) {
-                File imageFile = new File(importedImagePath);
-                final InputStream targetStream; // Creating the InputStream
-                try
-                {
-                    targetStream = new DataInputStream(new FileInputStream(imageFile));
-                    Image image = new Image(targetStream);
-                    imageView.setImage(image);
-                } catch (FileNotFoundException fileNotFoundException)
-                {
-                    fileNotFoundException.printStackTrace();
-                }
-            }
-        }
-
 
         public Item(String sku, String itemName, String category, String brand, String weight,
                     String volume, String quantity, String color, String type, String description, String importedImagePath) {
@@ -555,7 +544,6 @@ public class HelloController {
             this.type = type;
             this.description = description;
             this.importedImagePath = importedImagePath;
-            updateImageView();
         }
 
         public String toCSV() {
