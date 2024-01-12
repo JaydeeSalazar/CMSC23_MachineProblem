@@ -1,5 +1,7 @@
 package com.example.cmsc23_mp4;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import java.util.Scanner;
 public class HelloController {
 
     private static String imagePath;
+    private static final String Volumes = "CondimentBeverage";
 
     @FXML
     private TextField itemName;
@@ -115,8 +118,19 @@ public class HelloController {
             if (newSelection != null) {
                 selectedItem = newSelection;
 
-                Image image = new Image(selectedItem.getImportedImagePath());
-                imageView.setImage(image);
+                if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                    File imageFile = new File(selectedItem.getImportedImagePath());
+                    final InputStream targetStream; // Creating the InputStream
+                    try
+                    {
+                        targetStream = new DataInputStream(new FileInputStream(imageFile));
+                        Image image = new Image(targetStream);
+                        imageView.setImage(image);
+                    } catch (FileNotFoundException fileNotFoundException)
+                    {
+                        fileNotFoundException.printStackTrace();
+                    }
+                }
             }
         });
         // Set initial properties, dont do it initially sa scenebuilder or mahirap i-edit
@@ -126,8 +140,22 @@ public class HelloController {
         importButton.setVisible(false);
 
         // Populate choices in the category ChoiceBox
-        category.setItems(FXCollections.observableArrayList("Condiment", "Beverage", "Merchandise", "Appetizer"));
+        category.setItems(FXCollections.observableArrayList("Beverage", "Condiment", "Dry Good", "Fresh Ingredient", "Rice and Noodles"));
 
+        category.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                String chosen = category.getItems().get((Integer) number2);
+                if (Volumes.contains(chosen)){
+                    weight.setDisable(true);
+                    volume.setDisable(false);
+                }
+                else{
+                    weight.setDisable(false);
+                    volume.setDisable(true);
+                }
+            }
+        });
     }
 
     @FXML
@@ -165,6 +193,7 @@ public class HelloController {
                     brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
                     color.getText(), type.getText(), description.getText(),
                     imageView.getImage().getUrl());
+            System.out.println(imageView.getImage().getUrl());
 
             // Set the image using InputStream
             //newItem.setInputStream(getImageInputStream());
@@ -209,22 +238,6 @@ public class HelloController {
         description.clear();
     }
 
-    private InputStream getImageInputStream() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image");
-        File imageFile = fileChooser.showOpenDialog(null);
-
-        if (imageFile != null) {
-            try {
-                return new DataInputStream(new FileInputStream(imageFile));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
-    }
-
     @FXML
     protected void exportCSV() {
         FileChooser fileChooser = new FileChooser();
@@ -248,13 +261,13 @@ public class HelloController {
         fileChooser.setTitle("Select Image");
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            System.out.println(file.getAbsolutePath());
             final InputStream targetStream; // Creating the InputStream
             try
             {
                 targetStream = new DataInputStream(new FileInputStream(file));
                 Image image = new Image(targetStream);
                 imageView.setImage(image);
+                imagePath = file.getAbsolutePath();
 
             } catch (FileNotFoundException fileNotFoundException)
             {
@@ -515,9 +528,15 @@ public class HelloController {
         private void updateImageView() {
             if (importedImagePath != null && !importedImagePath.isEmpty()) {
                 File imageFile = new File(importedImagePath);
-                if (imageFile.exists()) {
-                    Image image = new Image(imageFile.toURI().toString());
+                final InputStream targetStream; // Creating the InputStream
+                try
+                {
+                    targetStream = new DataInputStream(new FileInputStream(imageFile));
+                    Image image = new Image(targetStream);
                     imageView.setImage(image);
+                } catch (FileNotFoundException fileNotFoundException)
+                {
+                    fileNotFoundException.printStackTrace();
                 }
             }
         }
