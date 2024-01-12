@@ -119,9 +119,10 @@ public class HelloController {
                     if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
                         if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
                             imageView.setImage(null);
-                            return;
                         }
-                        updateImageView();
+                        else {
+                            updateImageView();
+                        }
                     } else {
                         imageView.setImage(null);
                     }
