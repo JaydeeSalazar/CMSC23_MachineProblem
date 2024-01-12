@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class HelloController {
 
     private static String imagePath;
+    private static int arithmetic = 0;
     private static final String Volumes = "CondimentBeverage";
 
     @FXML
@@ -34,9 +35,6 @@ public class HelloController {
 
     @FXML
     private TextField volume;
-
-    @FXML
-    private TextField quantity;
 
     @FXML
     private TextField color;
@@ -67,9 +65,6 @@ public class HelloController {
 
     @FXML
     private TableColumn<Item, String> volumeColumn;
-
-    @FXML
-    private TableColumn<Item, String> quantityColumn;
 
     @FXML
     private TableColumn<Item, String> colorColumn;
@@ -105,7 +100,6 @@ public class HelloController {
         brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
         weightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         volumeColumn.setCellValueFactory(new PropertyValueFactory<>("volume"));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -119,15 +113,7 @@ public class HelloController {
                 selectedItem = newSelection;
                 if (!importButton.isVisible()) {
                     if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
-                        File imageFile = new File(selectedItem.getImportedImagePath());
-                        final InputStream targetStream; // Creating the InputStream
-                        try {
-                            targetStream = new DataInputStream(new FileInputStream(imageFile));
-                            Image image = new Image(targetStream);
-                            imageView.setImage(image);
-                        } catch (FileNotFoundException fileNotFoundException) {
-                            fileNotFoundException.printStackTrace();
-                        }
+                        updateImageView();
                     } else {
                         imageView.setImage(null);
                     }
@@ -175,17 +161,15 @@ public class HelloController {
     @FXML
     protected void addExisting() {
         if (selectedItem != null) {
-            setFieldsFromSelectedItem();
-            enableTextFields(true);
-            confirmButton.setVisible(true);
-            cancelButton.setVisible(true);
-
-            // Set the visibility of importButton
-            importButton.setVisible(true);
+            arithmetic = 1;
+            arithmeticMethod();
         }
         else{
             if (table.getItems().size() == 1){
                 selectedItem = table.getItems().getFirst();
+                if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                    updateImageView();
+                }
                 addExisting();
             }
         }
@@ -204,24 +188,56 @@ public class HelloController {
     protected void confirmAction() {
         if (selectedItem == null) {
             // Add a new item
-            Item newItem = new Item("SKU", itemName.getText(), category.getValue().toString(),
-                    brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
-                    color.getText(), type.getText(), description.getText(),
-                    imagePath);
-            System.out.println(imagePath);
-
-            // Set the image using InputStream
-            //newItem.setInputStream(getImageInputStream());
+            Item newItem;
+            if (Volumes.contains(category.getValue())) {
+                newItem = new Item("SKU", itemName.getText(), category.getValue(),
+                        brand.getText(), "-", volume.getText(),
+                        color.getText(), type.getText(), description.getText(),
+                        imagePath);
+            }
+            else{
+                newItem = new Item("SKU", itemName.getText(), category.getValue(),
+                        brand.getText(), weight.getText(), "-",
+                        color.getText(), type.getText(), description.getText(),
+                        imagePath);
+            }
 
             itemList.add(newItem);
         } else {
-            // Update SKU if the category or itemName has changed
-            selectedItem.updateSKU(category.getValue(), itemName.getText());
-
             // Edit the selected item
-            selectedItem.setAllFields(itemName.getText(), category.getValue().toString(),
-                    brand.getText(), weight.getText(), volume.getText(), quantity.getText(),
-                    color.getText(), type.getText(), description.getText(), imagePath);
+
+            switch (arithmetic) {
+                case 0:
+                    // Update SKU if the category or itemName has changed
+                    selectedItem.updateSKU(category.getValue(), itemName.getText());
+                    if (Volumes.contains(category.getValue())) {
+                        selectedItem.setAllFields(itemName.getText(), category.getValue(),
+                                brand.getText(), "-", volume.getText(),
+                                color.getText(), type.getText(), description.getText(), imagePath);
+                    }
+                    else{
+                        selectedItem.setAllFields(itemName.getText(), category.getValue(),
+                                brand.getText(), weight.getText(), "-",
+                                color.getText(), type.getText(), description.getText(), imagePath);
+                    }
+                    break;
+                case 1: // add existing
+                    if (Volumes.contains(category.getValue())){
+                        selectedItem.setField(true, volume.getText(), 1);
+                    }
+                    else{
+                        selectedItem.setField(false, weight.getText(), 1);
+                    }
+                    break;
+                case 2: // log usage
+                    if (Volumes.contains(category.getValue())){
+                        selectedItem.setField(true, volume.getText(), -1);
+                    }
+                    else{
+                        selectedItem.setField(false, weight.getText(), -1);
+                    }
+                    break;
+            }
 
             // Set the image using InputStream
             //selectedItem.setInputStream(getImageInputStream());
@@ -238,6 +254,11 @@ public class HelloController {
         // Handle the visibility of importButton
         importButton.setVisible(false);
         imageView.setImage(null);
+
+        if (arithmetic>0){
+            arithmetic = 0;
+        }
+        System.out.println(arithmetic);
     }
 
     @FXML
@@ -247,7 +268,6 @@ public class HelloController {
         brand.clear();
         weight.clear();
         volume.clear();
-        quantity.clear();
         color.clear();
         type.clear();
         description.clear();
@@ -305,9 +325,9 @@ public class HelloController {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     String[] values = line.split(",");
-                    if (values.length == 11) {
+                    if (values.length == 10) {
                         Item newItem = new Item(values[0], values[1], values[2], values[3],
-                                values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                                values[4], values[5], values[6], values[7], values[8], values[9]);
                         itemList.add(newItem);
                     }
                 }
@@ -321,6 +341,9 @@ public class HelloController {
     @FXML
     protected void editExisting() {
         if (selectedItem != null) {
+            if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                updateImageView();
+            }
             setFieldsFromSelectedItem();
             enableTextFields(true);
             confirmButton.setVisible(true);
@@ -333,7 +356,22 @@ public class HelloController {
             if (table.getItems().size() == 1){
                 selectedItem = table.getItems().getFirst();
                 editExisting();
+                if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                    updateImageView();
+                }
             }
+        }
+    }
+
+    private void updateImageView() {
+        File imageFile = new File(selectedItem.getImportedImagePath());
+        final InputStream targetStream; // Creating the InputStream
+        try {
+            targetStream = new DataInputStream(new FileInputStream(imageFile));
+            Image image = new Image(targetStream);
+            imageView.setImage(image);
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
         }
     }
 
@@ -354,16 +392,43 @@ public class HelloController {
 
     @FXML
     protected void logUsage() {
-        System.out.println("Placeholder");
+        if (selectedItem != null) {
+            arithmetic = 2;
+            arithmeticMethod();
+        }
+        else{
+            if (table.getItems().size() == 1){
+                selectedItem = table.getItems().getFirst();
+                if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                    updateImageView();
+                }
+                logUsage();
+            }
+        }
+    }
+
+    private void arithmeticMethod() {
+        resetAction();
+        enableTextFields(false);
+        category.setValue(selectedItem.getCategory());
+        if (Volumes.contains(selectedItem.getCategory())){
+            weight.setDisable(true);
+            volume.setDisable(false);
+        }
+        else{
+            weight.setDisable(false);
+            volume.setDisable(true);
+        }
+        confirmButton.setVisible(true);
+        cancelButton.setVisible(true);
     }
 
     private void enableTextFields(boolean enable) {
         itemName.setDisable(!enable);
         category.setDisable(!enable);
         brand.setDisable(!enable);
-        weight.setDisable(!enable);
-        volume.setDisable(!enable);
-        quantity.setDisable(!enable);
+        weight.setDisable(true);
+        volume.setDisable(true);
         color.setDisable(!enable);
         type.setDisable(!enable);
         description.setDisable(!enable);
@@ -375,7 +440,6 @@ public class HelloController {
         brand.setText(selectedItem.getBrand());
         weight.setText(selectedItem.getWeight());
         volume.setText(selectedItem.getVolume());
-        quantity.setText(selectedItem.getQuantity());
         color.setText(selectedItem.getColor());
         type.setText(selectedItem.getType());
         description.setText(selectedItem.getDescription());
@@ -394,7 +458,6 @@ public class HelloController {
         private String brand;
         private String weight;
         private String volume;
-        private String quantity;
         private String color;
         private String type;
         private String description;
@@ -423,10 +486,6 @@ public class HelloController {
 
         public String getVolume() {
             return volume;
-        }
-
-        public String getQuantity() {
-            return quantity;
         }
 
         public String getColor() {
@@ -532,14 +591,13 @@ public class HelloController {
 
 
         public Item(String sku, String itemName, String category, String brand, String weight,
-                    String volume, String quantity, String color, String type, String description, String importedImagePath) {
+                    String volume, String color, String type, String description, String importedImagePath) {
             this.sku = generateSKU(category, itemName);
             this.itemName = itemName;
             this.category = category;
             this.brand = brand;
             this.weight = weight;
             this.volume = volume;
-            this.quantity = quantity;
             this.color = color;
             this.type = type;
             this.description = description;
@@ -547,22 +605,40 @@ public class HelloController {
         }
 
         public String toCSV() {
-            return String.join(",", sku, itemName, category, brand, weight, volume, quantity,
+            return String.join(",", sku, itemName, category, brand, weight, volume,
                     color, type, description, importedImagePath);
         }
 
         public void setAllFields(String itemName, String category, String brand, String weight,
-                                 String volume, String quantity, String color, String type, String description, String importedImagePath) {
+                                 String volume, String color, String type, String description, String importedImagePath) {
             this.itemName = itemName;
             this.category = category;
             this.brand = brand;
             this.weight = weight;
             this.volume = volume;
-            this.quantity = quantity;
             this.color = color;
             this.type = type;
             this.description = description;
             this.importedImagePath = importedImagePath;
+        }
+        public void setField(boolean VolumeUnits, String initialAmount, int sign) {
+            double amount = Double.parseDouble(initialAmount);
+            if (VolumeUnits){
+                String value = this.volume;
+                Double finalValue = Double.parseDouble(value) + (amount*sign);
+                if (finalValue<0){
+                    finalValue = 0.0;
+                }
+                this.volume = String.valueOf(finalValue);
+            }
+            else{
+                String value = this.weight;
+                Double finalValue = Double.parseDouble(value) + (amount*sign);
+                if (finalValue<0){
+                    finalValue = 0.0;
+                }
+                this.weight = String.valueOf(finalValue);
+            }
         }
     }
 }
