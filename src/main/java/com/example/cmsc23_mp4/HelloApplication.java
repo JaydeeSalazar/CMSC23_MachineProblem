@@ -15,7 +15,7 @@ public class HelloApplication extends Application
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         scene.getStylesheets().add(getClass().getResource("FrontEndDesign.css").toExternalForm());
-        stage.setTitle("Inventory System");
+        stage.setTitle("MIMIDORI - Inventory System");
         stage.setMinWidth(1200);
         stage.setMinHeight(640);
         stage.setResizable(false);
