@@ -70,15 +70,14 @@
                                     <TableView fx:id="table" layoutX="7.0" layoutY="5.0" prefHeight="335.0" prefWidth="974.0">
                                       <columns>
                                         <TableColumn fx:id="skuColumn" prefWidth="119.19998741149902" text="SKU" />
-                                        <TableColumn fx:id="itemNameColumn" prefWidth="124.79998779296875" text="Item Name" />
-                                          <TableColumn fx:id="categoryColumn" prefWidth="102.4000244140625" text="Category" />
-                                          <TableColumn fx:id="brandColumn" prefWidth="92.0" text="Brand" />
-                                          <TableColumn fx:id="weightColumn" prefWidth="67.99996948242188" text="Weight" />
-                                          <TableColumn fx:id="volumeColumn" prefWidth="64.0" text="Volume" />
-                                          <TableColumn fx:id="quantityColumn" prefWidth="65.5999755859375" text="Quantity" />
-                                          <TableColumn fx:id="colorColumn" prefWidth="75.20001220703125" text="Color" />
-                                          <TableColumn fx:id="typeColumn" prefWidth="72.79998779296875" text="Type" />
-                                          <TableColumn fx:id="descriptionColumn" prefWidth="186.0" text="Description" />
+                                        <TableColumn fx:id="itemNameColumn" prefWidth="124.0" text="Item Name" />
+                                          <TableColumn fx:id="categoryColumn" prefWidth="111.0" text="Category" />
+                                          <TableColumn fx:id="brandColumn" prefWidth="97.0" text="Brand" />
+                                          <TableColumn fx:id="weightColumn" prefWidth="65.0" text="Weight" />
+                                          <TableColumn fx:id="volumeColumn" prefWidth="65.0" text="Volume" />
+                                          <TableColumn fx:id="colorColumn" prefWidth="97.0" text="Color" />
+                                          <TableColumn fx:id="typeColumn" prefWidth="94.0" text="Type" />
+                                          <TableColumn fx:id="descriptionColumn" prefWidth="201.0" text="Description" />
                                       </columns>
                                     </TableView>
                                  </children>
