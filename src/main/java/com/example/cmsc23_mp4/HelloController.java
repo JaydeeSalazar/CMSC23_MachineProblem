@@ -409,8 +409,8 @@ public class HelloController {
             }
 
             String searchKey = newValue.toLowerCase();
-            String parsedSku = Item.getSku();
-            if(Item.getSku().toLowerCase().contains(searchKey)) {
+            String parsedSku = (Item.getSku().replace("/","")).replace("-","");
+            if(parsedSku.toLowerCase().contains(searchKey)) {
                 return true;
             }
             else if(Item.getItemName().toLowerCase().contains(searchKey)) {
