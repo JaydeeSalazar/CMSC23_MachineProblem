@@ -83,54 +83,54 @@
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="23.0" layoutY="386.0" prefHeight="197.0" prefWidth="975.0" style="-fx-background-color: white;">
+                              <AnchorPane layoutX="23.0" layoutY="386.0" prefHeight="196.0" prefWidth="975.0" style="-fx-background-color: white;">
                                  <children>
-                                    <Label layoutX="16.0" layoutY="29.0" prefHeight="20.0" prefWidth="83.0" text="ITEM NAME">
+                                    <Label layoutX="22.0" layoutY="29.0" prefHeight="20.0" prefWidth="77.0" stylesheets="@LabelDesign.css" text="ITEM NAME">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="itemName" layoutX="99.0" layoutY="26.0" prefHeight="25.0" prefWidth="143.0" />
-                                    <Label layoutX="21.0" layoutY="70.0" prefHeight="20.0" prefWidth="81.0" text="CATEGORY">
+                                    <Label layoutX="28.0" layoutY="70.0" prefHeight="20.0" prefWidth="74.0" stylesheets="@LabelDesign.css" text="CATEGORY">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="45.0" layoutY="108.0" prefHeight="20.0" prefWidth="58.0" text="BRAND">
+                                    <Label layoutX="50.0" layoutY="108.0" prefHeight="20.0" prefWidth="53.0" stylesheets="@LabelDesign.css" text="BRAND">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="brand" layoutX="99.0" layoutY="105.0" prefHeight="25.0" prefWidth="143.0" />
-                                    <Label layoutX="322.0" layoutY="28.0" prefHeight="20.0" prefWidth="91.0" text="WEIGHT (KG)">
+                                    <Label layoutX="322.0" layoutY="28.0" prefHeight="20.0" prefWidth="91.0" stylesheets="@LabelDesign.css" text="WEIGHT (KG)">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="weight" layoutX="415.0" layoutY="26.0" prefHeight="25.0" prefWidth="70.0" />
-                                    <Label layoutX="428.0" layoutY="68.0" prefHeight="20.0" prefWidth="79.0" text="VOLUME (L)">
+                                    <Label layoutX="432.0" layoutY="68.0" prefHeight="20.0" prefWidth="75.0" stylesheets="@LabelDesign.css" text="VOLUME (L)">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="434.0" layoutY="106.0" prefHeight="20.0" prefWidth="72.0" text="QUANTITY">
+                                    <Label layoutX="436.0" layoutY="106.0" prefHeight="20.0" prefWidth="70.0" stylesheets="@LabelDesign.css" text="QUANTITY">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="259.0" layoutY="69.0" prefHeight="20.0" prefWidth="50.0" text="COLOR">
+                                    <Label layoutX="263.0" layoutY="69.0" prefHeight="20.0" prefWidth="46.0" stylesheets="@LabelDesign.css" text="COLOR">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="color" layoutX="312.0" layoutY="67.0" prefHeight="25.0" prefWidth="103.0" />
-                                    <Label layoutX="274.0" layoutY="109.0" prefHeight="20.0" prefWidth="38.0" text="TYPE">
+                                    <Label layoutX="274.0" layoutY="109.0" prefHeight="20.0" prefWidth="38.0" stylesheets="@LabelDesign.css" text="TYPE">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="type" layoutX="312.0" layoutY="106.0" prefHeight="25.0" prefWidth="103.0" />
-                                    <Label layoutX="594.0" layoutY="28.0" prefHeight="20.0" prefWidth="92.0" text="DESCRIPTION">
+                                    <Label layoutX="594.0" layoutY="28.0" prefHeight="20.0" prefWidth="92.0" stylesheets="@LabelDesign.css" text="DESCRIPTION">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

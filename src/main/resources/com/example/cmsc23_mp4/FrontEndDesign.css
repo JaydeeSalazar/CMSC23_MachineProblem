@@ -1,12 +1,5 @@
-.label
+.table-view .column-header
 {
--fx-font-family: "Source Sans Pro";
--fx-font-size: 12;
--fx-font-weight: bold;
--fx-text-fill: #0B1B28;
-}
-
-.table-view .column-header{
 -fx-text-fill: #91cb40;
 }
 
