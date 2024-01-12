@@ -3,6 +3,7 @@ package com.example.cmsc23_mp4;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -120,6 +121,7 @@ public class HelloController {
                 }
             }
         });
+
         // Set initial properties, dont do it initially sa scenebuilder or mahirap i-edit
         enableTextFields(false);
         confirmButton.setVisible(false);
@@ -145,6 +147,18 @@ public class HelloController {
         });
     }
 
+    private boolean repeatedSKU(String SKUnumber) {
+
+        for(Item i : itemList) {
+            String itemSKUNumber = i.getSku().substring(8);
+            if(itemSKUNumber.equalsIgnoreCase(SKUnumber)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @FXML
     protected void addItem() {
         selectedItem = null;  // Clear selected item
@@ -156,7 +170,6 @@ public class HelloController {
         // Set the visibility of importButton
         importButton.setVisible(true);
     }
-
 
     @FXML
     protected void addExisting() {
@@ -189,6 +202,14 @@ public class HelloController {
         if (selectedItem == null) {
             // Add a new item
             Item newItem;
+            if (itemName.getText().isEmpty() || category.getValue().isEmpty() || brand.getText().isEmpty() || (weight.getText().isEmpty() && volume.getText().isEmpty())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Required fields are empty");
+                alert.setContentText("The following must be filled out:\nItem Name\nCategory\nBrand\nWeight or Volume");
+
+                alert.showAndWait();
+                return;
+            }
             if (Volumes.contains(category.getValue())) {
                 newItem = new Item("SKU", itemName.getText(), category.getValue(),
                         brand.getText(), "-", volume.getText(),
@@ -258,7 +279,6 @@ public class HelloController {
         if (arithmetic>0){
             arithmetic = 0;
         }
-        System.out.println(arithmetic);
     }
 
     @FXML
@@ -451,7 +471,8 @@ public class HelloController {
         }
     }
 
-    public static class Item {
+
+    public class Item {
         private String sku;
         private String itemName;
         private String category;
@@ -511,7 +532,11 @@ public class HelloController {
             String itemPrefix = getConsonantsPrefix(itemName, 3);
 
             // random number from 0000 to 9999
-            String randomNumber = String.format("%04d", new Random().nextInt(10000));
+            String randomNumber = String.format("%04d", new Random().nextInt(10000));;
+            while (repeatedSKU(randomNumber)){
+            randomNumber = String.format("%04d", new Random().nextInt(10000));
+            }
+
 
             return categoryPrefix + "/" + itemPrefix + "-" + randomNumber;
         }
@@ -625,6 +650,9 @@ public class HelloController {
             double amount = Double.parseDouble(initialAmount);
             if (VolumeUnits){
                 String value = this.volume;
+                if (value == null || value.isEmpty()){
+                    value = "0.0";
+                }
                 Double finalValue = Double.parseDouble(value) + (amount*sign);
                 if (finalValue<0){
                     finalValue = 0.0;
@@ -633,6 +661,9 @@ public class HelloController {
             }
             else{
                 String value = this.weight;
+                if (value == null || value.isEmpty()){
+                    value = "0.0";
+                }
                 Double finalValue = Double.parseDouble(value) + (amount*sign);
                 if (finalValue<0){
                     finalValue = 0.0;
