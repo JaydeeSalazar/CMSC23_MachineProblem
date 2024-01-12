@@ -67,7 +67,7 @@
                               </ImageView>
                               <AnchorPane layoutX="17.0" layoutY="14.0" prefHeight="348.0" prefWidth="986.0">
                                  <children>
-                                    <TableView fx:id="table" layoutX="7.0" layoutY="35.0" prefHeight="305.0" prefWidth="974.0">
+                                    <TableView fx:id="table" layoutX="7.0" layoutY="39.0" prefHeight="301.0" prefWidth="974.0">
                                       <columns>
                                         <TableColumn fx:id="skuColumn" prefWidth="119.19998741149902" text="SKU" />
                                         <TableColumn fx:id="itemNameColumn" prefWidth="124.0" text="Item Name" />
@@ -82,7 +82,7 @@
                                     </TableView>
                                     <TextField fx:id="search" layoutX="7.0" layoutY="5.0" prefHeight="25.0" prefWidth="120.0" promptText="Search by SKU">
                                        <font>
-                                          <Font name="Arial" size="12.0" />
+                                          <Font name="Corbel" size="12.0" />
                                        </font>
                                     </TextField>
                                  </children>
