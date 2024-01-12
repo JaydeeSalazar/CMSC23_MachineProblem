@@ -86,12 +86,12 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="itemName" layoutX="99.0" layoutY="26.0" prefHeight="25.0" prefWidth="143.0" />
-                                    <Label layoutX="20.0" layoutY="70.0" prefHeight="20.0" prefWidth="74.0" text="CATEGORY">
+                                    <Label layoutX="21.0" layoutY="70.0" prefHeight="20.0" prefWidth="81.0" text="CATEGORY">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="43.0" layoutY="108.0" prefHeight="20.0" prefWidth="51.0" text="BRAND">
+                                    <Label layoutX="45.0" layoutY="108.0" prefHeight="20.0" prefWidth="58.0" text="BRAND">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -108,7 +108,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="433.0" layoutY="106.0" prefHeight="20.0" prefWidth="73.0" text="QUANTITY">
+                                    <Label layoutX="434.0" layoutY="106.0" prefHeight="20.0" prefWidth="72.0" text="QUANTITY">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -119,7 +119,7 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="color" layoutX="312.0" layoutY="67.0" prefHeight="25.0" prefWidth="103.0" />
-                                    <Label layoutX="273.0" layoutY="109.0" prefHeight="20.0" prefWidth="39.0" text="TYPE">
+                                    <Label layoutX="274.0" layoutY="109.0" prefHeight="20.0" prefWidth="38.0" text="TYPE">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -132,7 +132,7 @@
                                     </Label>
                                     <TextField fx:id="volume" layoutX="508.0" layoutY="67.0" prefHeight="26.0" prefWidth="65.0" />
                                     <TextField fx:id="quantity" layoutX="508.0" layoutY="104.0" prefHeight="25.0" prefWidth="65.0" />
-                                    <TextArea fx:id="description" layoutX="594.0" layoutY="53.0" prefHeight="77.0" prefWidth="213.0" />
+                                    <TextArea fx:id="description" layoutX="594.0" layoutY="53.0" prefHeight="77.0" prefWidth="209.0" />
                                     <Button fx:id="confirmButton" layoutX="333.0" layoutY="149.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ButtonDesign_bottompane.css" text="CONFIRM" />
                                     <Button fx:id="resetButton" layoutX="431.0" layoutY="149.0" mnemonicParsing="false" onAction="#resetAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ButtonDesign_bottompane.css" text="RESET" />
                                     <Button fx:id="cancelButton" layoutX="527.0" layoutY="149.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="80.0" stylesheets="@ButtonDesign_bottompane.css" text="CANCEL" />
