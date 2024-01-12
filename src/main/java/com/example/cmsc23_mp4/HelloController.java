@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -116,6 +117,10 @@ public class HelloController {
                 selectedItem = newSelection;
                 if (!importButton.isVisible()) {
                     if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                        if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
+                            imageView.setImage(null);
+                            return;
+                        }
                         updateImageView();
                     } else {
                         imageView.setImage(null);
@@ -137,13 +142,14 @@ public class HelloController {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
                 String chosen = category.getItems().get((Integer) number2);
-                if (Volumes.contains(chosen)){
-                    weight.setDisable(true);
-                    volume.setDisable(false);
-                }
-                else{
-                    weight.setDisable(false);
-                    volume.setDisable(true);
+                if (arithmetic == 0 && selectedItem == null) {
+                    if (Volumes.contains(chosen)) {
+                        weight.setDisable(true);
+                        volume.setDisable(false);
+                    } else {
+                        weight.setDisable(false);
+                        volume.setDisable(true);
+                    }
                 }
             }
         });
@@ -164,7 +170,6 @@ public class HelloController {
         for(Item i : itemList) {
             String skuText = i.getSku().substring(0,7);
             String itemSKU = i.getSku();
-            System.out.println(SKUtext + "vs. " + skuText);
             if (skuText.equalsIgnoreCase(SKUtext)) {
                 return itemSKU;
             }
@@ -193,6 +198,10 @@ public class HelloController {
         else{
             selectedItem = table.getItems().get(0);
             if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
+                    imageView.setImage(null);
+                    return;
+                }
                 updateImageView();
             }
         }
@@ -222,13 +231,13 @@ public class HelloController {
             }
             if (Volumes.contains(category.getValue())) {
                 newItem = new Item("SKU", itemName.getText(), category.getValue(),
-                        brand.getText(), "-", volume.getText(),
+                        brand.getText(), "", volume.getText(),
                         color.getText(), type.getText(), description.getText(),
                         imagePath);
             }
             else{
                 newItem = new Item("SKU", itemName.getText(), category.getValue(),
-                        brand.getText(), weight.getText(), "-",
+                        brand.getText(), weight.getText(), "",
                         color.getText(), type.getText(), description.getText(),
                         imagePath);
             }
@@ -243,12 +252,12 @@ public class HelloController {
                     selectedItem.updateSKU(category.getValue(), itemName.getText());
                     if (Volumes.contains(category.getValue())) {
                         selectedItem.setAllFields(itemName.getText(), category.getValue(),
-                                brand.getText(), "-", volume.getText(),
+                                brand.getText(), "", "0.0",
                                 color.getText(), type.getText(), description.getText(), imagePath);
                     }
                     else{
                         selectedItem.setAllFields(itemName.getText(), category.getValue(),
-                                brand.getText(), weight.getText(), "-",
+                                brand.getText(), "0.0", "",
                                 color.getText(), type.getText(), description.getText(), imagePath);
                     }
                     break;
@@ -368,6 +377,10 @@ public class HelloController {
     protected void editExisting() {
         if (selectedItem != null) {
             if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
+                    imageView.setImage(null);
+                    return;
+                }
                 updateImageView();
             }
             setFieldsFromSelectedItem();
@@ -382,6 +395,10 @@ public class HelloController {
             selectedItem = table.getItems().get(0);
             editExisting();
             if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
+                    imageView.setImage(null);
+                    return;
+                }
                 updateImageView();
             }
         }
@@ -465,6 +482,10 @@ public class HelloController {
         else{
             selectedItem = table.getItems().get(0);
             if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
+                    imageView.setImage(null);
+                    return;
+                }
                 updateImageView();
             }
             logUsage();
@@ -674,6 +695,9 @@ public class HelloController {
             this.color = color;
             this.type = type;
             this.description = description;
+            if (importedImagePath.isEmpty()){
+                importedImagePath = "C://";
+            }
             this.importedImagePath = importedImagePath;
         }
 
@@ -692,6 +716,9 @@ public class HelloController {
             this.color = color;
             this.type = type;
             this.description = description;
+            if (importedImagePath.isEmpty()){
+                importedImagePath = "C://";
+            }
             this.importedImagePath = importedImagePath;
         }
         public void setField(boolean VolumeUnits, String initialAmount, int sign) {
