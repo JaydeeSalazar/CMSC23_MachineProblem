@@ -308,7 +308,7 @@ public class HelloController {
         type.clear();
         description.clear();
         imageView.setImage(null);
-        imagePath = "";
+        imagePath = "C://";
     }
 
     @FXML
@@ -533,7 +533,7 @@ public class HelloController {
             imagePath = selectedItem.getImportedImagePath();
         }
         else{
-            imagePath = "";
+            imagePath = "C://";
         }
     }
 
