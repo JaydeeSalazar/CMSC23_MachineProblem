@@ -136,7 +136,7 @@ public class HelloController {
         importButton.setVisible(false);
 
         // Populate choices in the category ChoiceBox
-        category.setItems(FXCollections.observableArrayList("Beverage", "Condiment", "Dry Good", "Fresh Ingredient", "Rice and Noodles"));
+        category.setItems(FXCollections.observableArrayList("Beverage", "Condiment", "Dry Food", "Fresh Ingredient", "Rice and Noodles"));
 
         category.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
