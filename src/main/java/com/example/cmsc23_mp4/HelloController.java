@@ -5,6 +5,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -98,6 +100,7 @@ public class HelloController {
     @FXML
     public void initialize() {
         // Initialize table columns
+        itemSearch();
         skuColumn.setCellValueFactory(new PropertyValueFactory<>("sku"));
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -109,7 +112,7 @@ public class HelloController {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         // Set the items into the table
-        table.setItems(itemList);
+        //table.setItems(itemList);
 
         // Add listener to handle row selection for editing/deleting
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -181,12 +184,9 @@ public class HelloController {
             arithmeticMethod();
         }
         else{
-            if (table.getItems().size() == 1){
-                selectedItem = table.getItems().getFirst();
-                if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
-                    updateImageView();
-                }
-                addExisting();
+            selectedItem = table.getItems().getFirst();
+            if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                updateImageView();
             }
         }
     }
@@ -271,7 +271,7 @@ public class HelloController {
             table.getItems().set(index, selectedItem);
         }
 
-        table.setItems(itemList);
+        //table.setItems(itemList);
         resetAction();
         cancelAction();  // Ensure to clear the TextFields and hide buttons
 
@@ -282,6 +282,7 @@ public class HelloController {
         if (arithmetic>0){
             arithmetic = 0;
         }
+        //itemSearch();
     }
 
     @FXML
@@ -354,7 +355,8 @@ public class HelloController {
                         itemList.add(newItem);
                     }
                 }
-                table.setItems(itemList);
+                //table.setItems(itemList);
+                //itemSearch();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -376,14 +378,13 @@ public class HelloController {
             importButton.setVisible(true);
         }
         else{
-            if (table.getItems().size() == 1){
-                selectedItem = table.getItems().getFirst();
-                editExisting();
-                if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
-                    updateImageView();
-                }
+            selectedItem = table.getItems().getFirst();
+            editExisting();
+            if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                updateImageView();
             }
         }
+        //itemSearch();
     }
 
     private void updateImageView() {
@@ -398,19 +399,71 @@ public class HelloController {
         }
     }
 
+    public void itemSearch() {
+        System.out.println("1");
+        FilteredList<Item> filter =  new FilteredList<> (itemList, e -> true);
+        search.textProperty().addListener((observable, oldValue, newValue) -> {filter.setPredicate(Item -> {
+
+            if(newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            if(newValue.length() == 3){
+                search.appendText("/");
+            }
+            if(newValue.length() == 7){
+                search.appendText("-");
+            }
+
+            String searchKey = newValue.toLowerCase();
+
+            if(Item.getSku().toLowerCase().contains(searchKey)) {
+                return true;
+            }
+            /*else if(Item.getItemName().toLowerCase().indexOf(searchKey) != -1) {
+                return true;
+            }
+            else if(Item.getCategory().toLowerCase().indexOf(searchKey) != -1) {
+                return true;
+            }
+            else if(Item.getBrand().toLowerCase().indexOf(searchKey) != -1) {
+                return true;
+            }
+            else if(Item.getColor().toLowerCase().indexOf(searchKey) != -1) {
+                return true;
+            }
+            else if(Item.getType().toLowerCase().indexOf(searchKey) != -1) {
+                return true;
+            }
+            else if(Item.getDescription().toLowerCase().indexOf(searchKey) != -1) {
+                return true;
+            }*/
+            else {
+                return false;
+            }
+        });
+
+        });
+
+        SortedList<Item> sortedData = new SortedList<>(filter);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+
+        table.setItems(sortedData);
+        System.out.println("2");
+
+    }
+
     @FXML
     protected void deleteExisting() {
         if (selectedItem != null) {
             itemList.remove(selectedItem);
             selectedItem = null;
-            table.setItems(itemList);
+            //table.setItems(itemList);
             resetAction();
         }
         else{
-            if (table.getItems().size() == 1){
-                itemList.removeFirst();
-            }
+            itemList.removeFirst();
         }
+        //itemSearch();
     }
 
     @FXML
@@ -420,13 +473,11 @@ public class HelloController {
             arithmeticMethod();
         }
         else{
-            if (table.getItems().size() == 1){
-                selectedItem = table.getItems().getFirst();
-                if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
-                    updateImageView();
-                }
-                logUsage();
+            selectedItem = table.getItems().getFirst();
+            if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                updateImageView();
             }
+            logUsage();
         }
     }
 
