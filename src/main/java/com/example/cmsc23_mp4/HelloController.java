@@ -282,7 +282,7 @@ public class HelloController {
         if (arithmetic>0){
             arithmetic = 0;
         }
-        //itemSearch();
+        itemSearch();
     }
 
     @FXML
@@ -356,7 +356,7 @@ public class HelloController {
                     }
                 }
                 //table.setItems(itemList);
-                //itemSearch();
+                itemSearch();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -384,7 +384,7 @@ public class HelloController {
                 updateImageView();
             }
         }
-        //itemSearch();
+        itemSearch();
     }
 
     private void updateImageView() {
@@ -407,36 +407,30 @@ public class HelloController {
             if(newValue == null || newValue.isEmpty()) {
                 return true;
             }
-            if(newValue.length() == 3){
-                search.appendText("/");
-            }
-            if(newValue.length() == 7){
-                search.appendText("-");
-            }
 
             String searchKey = newValue.toLowerCase();
-
+            String parsedSku = Item.getSku();
             if(Item.getSku().toLowerCase().contains(searchKey)) {
                 return true;
             }
-            /*else if(Item.getItemName().toLowerCase().indexOf(searchKey) != -1) {
+            else if(Item.getItemName().toLowerCase().contains(searchKey)) {
                 return true;
             }
-            else if(Item.getCategory().toLowerCase().indexOf(searchKey) != -1) {
+            else if(Item.getCategory().toLowerCase().contains(searchKey)) {
                 return true;
             }
-            else if(Item.getBrand().toLowerCase().indexOf(searchKey) != -1) {
+            else if(Item.getBrand().toLowerCase().contains(searchKey)) {
                 return true;
             }
-            else if(Item.getColor().toLowerCase().indexOf(searchKey) != -1) {
+            else if(Item.getColor().toLowerCase().contains(searchKey)) {
                 return true;
             }
-            else if(Item.getType().toLowerCase().indexOf(searchKey) != -1) {
+            else if(Item.getType().toLowerCase().contains(searchKey)) {
                 return true;
             }
-            else if(Item.getDescription().toLowerCase().indexOf(searchKey) != -1) {
+            else if(Item.getDescription().toLowerCase().contains(searchKey)) {
                 return true;
-            }*/
+            }
             else {
                 return false;
             }
@@ -463,7 +457,7 @@ public class HelloController {
         else{
             itemList.removeFirst();
         }
-        //itemSearch();
+        itemSearch();
     }
 
     @FXML
