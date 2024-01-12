@@ -376,13 +376,6 @@ public class HelloController {
     @FXML
     protected void editExisting() {
         if (selectedItem != null) {
-            if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
-                if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
-                    imageView.setImage(null);
-                    return;
-                }
-                updateImageView();
-            }
             setFieldsFromSelectedItem();
             enableTextFields(true);
             confirmButton.setVisible(true);
@@ -390,6 +383,14 @@ public class HelloController {
 
             // Set the visibility of importButton
             importButton.setVisible(true);
+
+            if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
+                if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
+                    imageView.setImage(null);
+                    return;
+                }
+                updateImageView();
+            }
         }
         else{
             selectedItem = table.getItems().get(0);
@@ -481,6 +482,7 @@ public class HelloController {
         }
         else{
             selectedItem = table.getItems().get(0);
+            logUsage();
             if (selectedItem.getImportedImagePath() != null && !selectedItem.getImportedImagePath().isEmpty()) {
                 if (Objects.equals(selectedItem.getImportedImagePath(), "C://")){
                     imageView.setImage(null);
@@ -488,7 +490,6 @@ public class HelloController {
                 }
                 updateImageView();
             }
-            logUsage();
         }
     }
 
