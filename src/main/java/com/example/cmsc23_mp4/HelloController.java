@@ -300,7 +300,6 @@ public class HelloController {
     @FXML
     protected void resetAction() {
         itemName.clear();
-        category.setValue(null);
         brand.clear();
         weight.clear();
         volume.clear();
@@ -309,6 +308,9 @@ public class HelloController {
         description.clear();
         imageView.setImage(null);
         imagePath = "C://";
+        if (arithmetic == 0){
+            category.setValue(null);
+        }
     }
 
     @FXML
@@ -428,6 +430,9 @@ public class HelloController {
                 String searchKey = newValue.toLowerCase();
                 String parsedSku = (item.getSku().replace("/","")).replace("-","");
                 if(parsedSku.toLowerCase().contains(searchKey)) {
+                    return true;
+                }
+                else if(item.getSku().toLowerCase().contains(searchKey)) {
                     return true;
                 }
                 else if(item.getItemName().toLowerCase().contains(searchKey)) {
