@@ -23,6 +23,9 @@ public class HelloController {
     private static final String Volumes = "CondimentBeverage";
 
     @FXML
+    private TextField search;
+
+    @FXML
     private TextField itemName;
 
     @FXML
