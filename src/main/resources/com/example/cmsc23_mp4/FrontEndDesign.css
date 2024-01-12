@@ -1,3 +1,20 @@
+.table-view 
+{
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-accent: transparent ;
+}
+.table-view .table-row-cell:selected
+ {
+    -fx-body-color: #CEDAE3;
+    -fx-background-color: #CEDAE3;
+    -fx-text-fill: black;
+}
+.table-view:focused
+ {
+  -fx-background-color: transparent,-fx-box-border,-fx-control-inner-background;
+}
+
 .table-view .column-header
 {
 -fx-text-fill: #91cb40;
