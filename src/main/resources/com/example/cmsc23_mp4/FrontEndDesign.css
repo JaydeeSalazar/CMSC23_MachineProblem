@@ -3,10 +3,17 @@
 -fx-text-fill: #91cb40;
 }
 
-.table-row-cell:even{
+.table-row-cell:selected
+{
+   -fx-text-background-color: black;
+}
+
+.table-row-cell:even
+{
 -fx-background-color: #f3f3f3;
 }
-.table-row-cell:odd{
--fx-background-color: "White";
+.table-row-cell:odd
+{
+-fx-background-color: White;
 }
 
