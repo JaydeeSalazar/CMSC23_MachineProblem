@@ -140,17 +140,21 @@ public class HelloController {
 
         category.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                String chosen = category.getItems().get((Integer) number2);
-                if (arithmetic == 0 && selectedItem == null) {
-                    if (Volumes.contains(chosen)) {
-                        weight.setDisable(true);
-                        volume.setDisable(false);
-                    } else {
-                        weight.setDisable(false);
-                        volume.setDisable(true);
-                    }
-                }
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) 
+            {
+            	 if (number2.intValue() != -1)
+            	 {
+	            	String chosen = category.getItems().get((Integer) number2);
+	                if (arithmetic == 0 && selectedItem == null) {
+	                    if (Volumes.contains(chosen)) {
+	                        weight.setDisable(true);
+	                        volume.setDisable(false);
+	                    } else {
+	                        weight.setDisable(false);
+	                        volume.setDisable(true);
+	                    }
+	                }
+            	 }
             }
         });
     }
