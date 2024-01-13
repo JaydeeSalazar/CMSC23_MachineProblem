@@ -254,15 +254,27 @@ public class HelloController {
                 case 0:
                     // Update SKU if the category or itemName has changed
                     selectedItem.updateSKU(category.getValue(), itemName.getText());
-                    if (Volumes.contains(category.getValue())) {
-                        selectedItem.setAllFields(itemName.getText(), category.getValue(),
-                                brand.getText(), "", "0.0",
-                                color.getText(), type.getText(), description.getText(), imagePath);
+                    if ((Volumes.contains(category.getValue())) == (Volumes.contains(selectedItem.category))){ // if category uses the same units
+                        if (Volumes.contains(category.getValue())) {
+                            selectedItem.setAllFields(itemName.getText(), category.getValue(),
+                                    brand.getText(), "", volume.getText(),
+                                    color.getText(), type.getText(), description.getText(), imagePath);
+                        } else {
+                            selectedItem.setAllFields(itemName.getText(), category.getValue(),
+                                    brand.getText(), weight.getText(), "",
+                                    color.getText(), type.getText(), description.getText(), imagePath);
+                        }
                     }
                     else{
-                        selectedItem.setAllFields(itemName.getText(), category.getValue(),
-                                brand.getText(), "0.0", "",
-                                color.getText(), type.getText(), description.getText(), imagePath);
+                        if (Volumes.contains(category.getValue())) {
+                            selectedItem.setAllFields(itemName.getText(), category.getValue(),
+                                    brand.getText(), "", "0.0",
+                                    color.getText(), type.getText(), description.getText(), imagePath);
+                        } else {
+                            selectedItem.setAllFields(itemName.getText(), category.getValue(),
+                                    brand.getText(), "0.0", "",
+                                    color.getText(), type.getText(), description.getText(), imagePath);
+                        }
                     }
                     break;
                 case 1: // add existing
