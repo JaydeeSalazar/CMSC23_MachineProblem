@@ -16,8 +16,8 @@ public class HelloApplication extends Application
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         scene.getStylesheets().add(getClass().getResource("FrontEndDesign.css").toExternalForm());
         stage.setTitle("MIMIDORI - Inventory System");
-        stage.setMinWidth(1200);
-        stage.setMinHeight(640);
+        stage.setMinWidth(1196);
+        stage.setMinHeight(636);
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
