@@ -1,1 +1,1 @@
-There are three branches in this repository. Each branch was used one after the other for the project. The earliest branch is MP_MAIN1 which contains the earliest commits to the program while MP_MAIN3 contains the latest commits to the program. 
+There are three branches in this repository. Each branch was used one after the other for the project. The earliest branch is MP_MAIN1 which contains the earliest commits to the program while MP_MAIN3_FINAL contains the latest commits to the program. As such, MP_MAIN_3 contains the latest version of the Inventory System Program.
