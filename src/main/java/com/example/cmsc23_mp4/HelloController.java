@@ -252,6 +252,14 @@ public class HelloController {
 
             switch (arithmetic) {
                 case 0:
+                	if (itemName.getText().isEmpty() || category.getValue().isEmpty() || brand.getText().isEmpty() || (weight.getText().isEmpty() && volume.getText().isEmpty())){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Required fields are empty");
+                        alert.setContentText("The following must be filled out:\nItem Name\nCategory\nBrand\nWeight or Volume");
+
+                        alert.showAndWait();
+                        return;
+                    }
                     // Update SKU if the category or itemName has changed
                     selectedItem.updateSKU(category.getValue(), itemName.getText());
                     if ((Volumes.contains(category.getValue())) == (Volumes.contains(selectedItem.category))){ // if category uses the same units
